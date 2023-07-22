@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rolling Dice</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    #dice {
+      font-size: 36px;
+      border: 2px solid #000;
+      width: 350px;
+      height: 350px;
+      line-height: 350px;
+      border-radius: 50%;
+      display: inline-block;
+      margin: 20px;
+      cursor: pointer;
+    }
+    #dice-text {
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    #leaderboard {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Rolling Dice</h1>
+  <div id="dice" onclick="rollDice()">
+    <span id="dice-text">Click to Roll</span>
+  </div>
+  <p id="result"></p>
+  <div id="leaderboard">
+    <h2>Leaderboard - Highest Rolled Number</h2>
+    <p id="highestNumber">None</p>
+  </div>
+
+  <script>
+    let highestRolledNumber = 0;
+
+    function getRandomNumber(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function rollDice() {
+      const dice = document.getElementById('dice');
+      const resultElement = document.getElementById('result');
+
+      // Change the range here for different dice types
+      const minNumber = 1;
+      const maxNumber = 100000;
+
+      const randomNumber = getRandomNumber(minNumber, maxNumber);
+
+      dice.textContent = randomNumber;
+      resultElement.textContent = `You rolled: ${randomNumber}`;
+
+      if (randomNumber > highestRolledNumber) {
+        highestRolledNumber = randomNumber;
+        updateLeaderboard();
+      }
+    }
+
+    function updateLeaderboard() {
+      const highestNumberElement = document.getElementById('highestNumber');
+      highestNumberElement.textContent = highestRolledNumber;
+    }
+  </script>
+</body>
+</html>
